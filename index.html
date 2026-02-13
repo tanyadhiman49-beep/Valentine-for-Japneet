@@ -26,50 +26,31 @@ text-align:center;
 box-shadow:0 10px 25px rgba(255,105,180,.25);
 }
 
-h1{
-color:#ff4f9a;
-font-size:22px;
-margin-bottom:12px;
-}
+h1{color:#ff4f9a;font-size:22px;margin-bottom:12px;}
 
 img{
-width:210px;
-border-radius:16px;
-margin:12px 0;
+width:210px;border-radius:16px;margin:12px 0;
 box-shadow:0 0 12px rgba(255,182,193,.6);
 }
 
 button{
-padding:12px 20px;
-margin:6px;
-border:none;
-border-radius:25px;
-background:#ff5fa2;
-color:white;
-font-size:15px;
-cursor:pointer;
+padding:12px 20px;margin:6px;border:none;border-radius:25px;
+background:#ff5fa2;color:white;font-size:15px;cursor:pointer;
 }
 
-#noBtn{ position:absolute; }
+#noBtn{position:absolute;}
 
 .popup{
-position:fixed;
-top:50%;
-left:50%;
+position:fixed;top:50%;left:50%;
 transform:translate(-50%,-50%);
-background:white;
-padding:22px;
-border-radius:18px;
+background:white;padding:22px;border-radius:18px;
 box-shadow:0 0 20px rgba(0,0,0,.25);
-display:none;
-z-index:10;
+display:none;z-index:10;
 }
 
 .heart{
-position:fixed;
-font-size:20px;
-animation:fall 5s linear infinite;
-opacity:.8;
+position:fixed;font-size:20px;
+animation:fall 5s linear infinite;opacity:.8;
 }
 
 @keyframes fall{
@@ -106,54 +87,52 @@ Would you be okay if I make the permanent booking??? ❤️
 <script>
 const slides=[
 
-{
-type:"yesno",
-q:"Hey Japneet :)<br>Will you be my Valentine? 💖",
-img:"https://media1.giphy.com/media/t8xgPfC5oNIRMrNooe/giphy.webp"
-},
+{type:"yesno",q:"Hey Japneet :)<br>Will you be my Valentine? 💖",
+img:"https://media1.giphy.com/media/t8xgPfC5oNIRMrNooe/giphy.webp"},
 
-{
-type:"yesno",
-q:"Are you excited? 😁",
-img:"https://media3.giphy.com/media/vqvmGLZdqxNzCtVlR3/giphy.webp"
-},
+{type:"yesno",q:"Are you excited? 😁",
+img:"https://media3.giphy.com/media/vqvmGLZdqxNzCtVlR3/giphy.webp"},
 
-{
-type:"choice",
-q:"Think again 😏<br>One more chance 💘",
+{type:"choice",q:"Think again 😏<br>One more chance 💘",
 img:"https://media2.giphy.com/media/DfSXiR60W9MVq/100.webp",
-options:["Yes 🧡","Definitely Yesss 🩷"]
-},
+options:["Yes 🧡","Definitely Yesss 🩷"]},
 
-{
-type:"choice",
-q:"😎 Not that easy!<br>Unlock my Love 💝",
+{type:"choice",q:"😎 Not that easy!<br>Unlock my Love 💝",
 img:"https://media.tenor.com/_l_5p1vtSE0AAAAM/chiens-funnyanimals.gif",
-options:["Start Quiz 💡"]
-},
+options:["Start Quiz 💡"]},
 
-{
-type:"quiz",
-q:"Q1. When did we first meet?",
+{type:"quiz",q:"Q1. When did we first meet?",
 img:"https://i.pinimg.com/736x/ec/e4/d7/ece4d7547d2314b3879f3ee3680af109.jpg",
 options:["6th December 2025","7th December 2025","9th December 2025"],
-correct:1,
-right:"Woohooo 🥳",
-wrong:"Seriously 😡"
-},
+correct:1,right:"Woohooo 🥳",wrong:"Seriously 😡"},
 
-{
-type:"choice",
-q:"Anyways 😌",
+{type:"quiz",q:"Q2. Where was our first official date?",
+img:"https://media.giphy.com/media/26xBP3VpjrRHD9d16/giphy.gif",
+options:["Cafe","Arcade","Mall"],
+correct:1,right:"Going great so far 👌",wrong:"I expected more 😿"},
+
+{type:"quiz",q:"Q3. Best part of our bond?",
+img:"https://media3.giphy.com/media/3oriO6qJiXajN0TyDu/giphy.webp",
+options:["Intellectual Intelligence","Total transparency","The feeling of being Safe"],
+correct:2,right:"Waaaah Cutie 😻",wrong:"Itna bhi nahi jaante 😤"},
+
+{type:"quiz",q:"Q4. What do you love about me?",
+img:"https://media2.giphy.com/media/zrxazUScjhxo4/200.webp",
+options:["Physical beauty","Intelligence","Everything"],
+correct:2,right:"You nailed it 🎊",wrong:"Dil se socho 🥺"},
+
+{type:"quiz",q:"Q5. When did you propose me?",
+img:"https://media4.giphy.com/media/s4T64Kx2p0fhm/200.webp",
+options:["7th Dec 2025","21st Feb 2025","12th Feb 2026"],
+correct:2,right:"Correct 😌",wrong:"Hehe wrong 😝"},
+
+{type:"choice",q:"Anyways 😌",
 img:"https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDN3ODNkcHhvdzJldGQzMjY0eGJ4c25zczQxenQ2N3pqNHQ1ZDZweiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/LOu8FUhPgpeUAi0wiu/200.webp",
-options:["Continue 💞"]
-},
+options:["Continue 💞"]},
 
-{
-type:"final",
+{type:"final",
 q:"Yayyayy 🤩<br>You unlocked my heart 💘<br>Be My Valentine? 🎉❤️",
-img:"Us.jpg"
-}
+img:"Us.jpg"}
 
 ];
 
@@ -181,15 +160,11 @@ no.onmouseover=()=>moveNo(no);
 }
 
 if(s.type==="choice"){
-s.options.forEach(opt=>{
-createBtn(opt,()=>{index++;loadSlide();});
-});
+s.options.forEach(opt=>createBtn(opt,()=>{index++;loadSlide();}));
 }
 
 if(s.type==="quiz"){
-s.options.forEach((opt,i)=>{
-createBtn(opt,()=>handleQuiz(i));
-});
+s.options.forEach((opt,i)=>createBtn(opt,()=>handleQuiz(i)));
 }
 
 if(s.type==="final"){
