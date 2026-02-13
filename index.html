@@ -6,26 +6,72 @@
 
 <style>
 body{
-margin:0;height:100vh;display:flex;justify-content:center;align-items:center;
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
 background:linear-gradient(135deg,#ffb6d9,#ffd1ea,#ffe6f3,#fff5fb);
-font-family:'Segoe UI',sans-serif;overflow:hidden;
+font-family:'Segoe UI',sans-serif;
+overflow:hidden;
 }
+
 .container{
 background:linear-gradient(135deg,#fff0f6,#ffe4f1,#fff7fb);
-padding:28px;border-radius:25px;width:90%;max-width:380px;text-align:center;
+padding:28px;
+border-radius:25px;
+width:90%;
+max-width:380px;
+text-align:center;
 box-shadow:0 10px 25px rgba(255,105,180,.25);
 }
+
 h1{color:#ff4f9a;font-size:22px;margin-bottom:12px;}
-img{width:210px;border-radius:16px;margin:12px 0;box-shadow:0 0 12px rgba(255,182,193,.6);}
-button{padding:12px 20px;margin:6px;border:none;border-radius:25px;background:#ff5fa2;color:white;font-size:15px;cursor:pointer;}
-#noBtn{position:absolute;}
-.popup{
-position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-background:white;padding:22px;border-radius:18px;box-shadow:0 0 20px rgba(0,0,0,.25);
-display:none;z-index:10;
+
+img{
+width:210px;
+border-radius:16px;
+margin:12px 0;
+box-shadow:0 0 12px rgba(255,182,193,.6);
 }
-.heart{position:fixed;font-size:20px;animation:fall 5s linear infinite;opacity:.8;}
-@keyframes fall{0%{transform:translateY(-10vh);}100%{transform:translateY(110vh);}}
+
+button{
+padding:12px 20px;
+margin:6px;
+border:none;
+border-radius:25px;
+background:#ff5fa2;
+color:white;
+font-size:15px;
+cursor:pointer;
+}
+
+#noBtn{position:absolute;}
+
+.popup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:22px;
+border-radius:18px;
+box-shadow:0 0 20px rgba(0,0,0,.25);
+display:none;
+z-index:10;
+}
+
+.heart{
+position:fixed;
+font-size:20px;
+animation:fall 5s linear infinite;
+opacity:.8;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
+}
 </style>
 </head>
 
@@ -37,7 +83,9 @@ display:none;z-index:10;
 <div id="buttons"></div>
 </div>
 
-<div class="popup" id="popup"><h3 id="popupText"></h3></div>
+<div class="popup" id="popup">
+<h3 id="popupText"></h3>
+</div>
 
 <div class="popup" id="letterPopup">
 <h3>💌 A Letter For You</h3>
@@ -52,7 +100,7 @@ Would you be okay if I make the permanent booking??? ❤️
 </div>
 
 <script>
-const slides=[
+const slides = [
 
 {type:"yesno",q:"Hey Japneet :)<br>Will you be my Valentine? 💖",
 img:"https://media1.giphy.com/media/t8xgPfC5oNIRMrNooe/giphy.webp"},
@@ -103,39 +151,93 @@ img:"Us.jpg"}
 
 ];
 
-let index=0;
+let index = 0;
+
 const title = document.getElementById("title");
-const pic=document.getElementById("pic");
-const buttons=document.getElementById("buttons");
-const popup=document.getElementById("popup");
-const popupText=document.getElementById("popupText");
+const pic = document.getElementById("pic");
+const buttons = document.getElementById("buttons");
+const popup = document.getElementById("popup");
+const popupText = document.getElementById("popupText");
 
 function loadSlide(){
-buttons.innerHTML="";popup.style.display="none";
-const s=slides[index];title.innerHTML=s.q;pic.src=s.img;
+buttons.innerHTML = "";
+popup.style.display = "none";
+
+const s = slides[index];
+title.innerHTML = s.q;
+pic.src = s.img;
 
 if(s.type==="yesno"){
 createBtn("Yes 💖",()=>{index++;loadSlide();});
-let no=createBtn("No 😜");no.id="noBtn";no.onmouseover=()=>moveNo(no);
-}
-if(s.type==="choice"){s.options.forEach(o=>createBtn(o,()=>{index++;loadSlide();}));}
-if(s.type==="quiz"){s.options.forEach((o,i)=>createBtn(o,()=>handleQuiz(i)));}
-
-if(s.type==="final"){startHearts();createBtn("Open My Heart 💌",openLetter);}
+let no = createBtn("No 😜");
+no.id="noBtn";
+no.onmouseover=()=>moveNo(no);
 }
 
-function createBtn(t,f){let b=document.createElement("button");b.innerText=t;if(f)b.onclick=f;buttons.appendChild(b);}
-function handleQuiz(i){let s=slides[index];
-if(i===s.correct){popupText.innerText=s.right;popup.style.display="block";setTimeout(()=>{index++;loadSlide();},900);}
-else{popupText.innerText=s.wrong;popup.style.display="block";}
+if(s.type==="choice"){
+s.options.forEach(opt=>{
+createBtn(opt,()=>{index++;loadSlide();});
+});
 }
-function moveNo(b){b.style.left=Math.random()*200+"px";b.style.top=Math.random()*60+"px";}
-function startHearts(){setInterval(()=>{let h=document.createElement("div");h.className="heart";h.innerText="💖";h.style.left=Math.random()*100+"vw";document.body.appendChild(h);setTimeout(()=>h.remove(),5000);},600);}
-function openLetter(){document.getElementById("letterPopup").style.display="block";}
-function closeLetter(){document.getElementById("letterPopup").style.display="none";}
+
+if(s.type==="quiz"){
+s.options.forEach((opt,i)=>{
+createBtn(opt,()=>handleQuiz(i));
+});
+}
+
+if(s.type==="final"){
+startHearts();
+createBtn("Open My Heart 💌",openLetter);
+}
+}
+
+function createBtn(text,fn){
+let b=document.createElement("button");
+b.innerText=text;
+if(fn)b.onclick=fn;
+buttons.appendChild(b);
+return b;
+}
+
+function handleQuiz(i){
+let s=slides[index];
+if(i===s.correct){
+popupText.innerText=s.right;
+popup.style.display="block";
+setTimeout(()=>{index++;loadSlide();},900);
+}else{
+popupText.innerText=s.wrong;
+popup.style.display="block";
+}
+}
+
+function moveNo(btn){
+btn.style.left=Math.random()*200+"px";
+btn.style.top=Math.random()*60+"px";
+}
+
+function startHearts(){
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerText="💖";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),5000);
+},600);
+}
+
+function openLetter(){
+document.getElementById("letterPopup").style.display="block";
+}
+
+function closeLetter(){
+document.getElementById("letterPopup").style.display="none";
+}
+
 loadSlide();
 </script>
 
 </body>
 </html>
-
